@@ -1,0 +1,106 @@
+Given an array of integers nums and a number k, write a function that returns true if given array can be divided into pairs such that sum of every pair is divisible by k.
+
+Example 1 :
+
+Input : 
+nums = [9, 5, 7, 3]
+k = 6
+Output: 
+True
+Explanation: 
+{(9, 3), (5, 7)} is a 
+possible solution. 9 + 3 = 12 is divisible
+by 6 and 7 + 5 = 12 is also divisible by 6.
+Example 2:
+
+Input : 
+nums = [4, 4, 4]
+k = 4
+Output: 
+False
+Explanation: 
+You can make 1 pair at max, leaving a single 4 unpaired.
+Your Task:
+You don't need to read or print anything. Your task is to complete the function canPair() which takes array nums and k as input parameter and returns true if array can be divided into pairs such that sum of every pair is divisible by k otherwise returns false.
+
+Expected Time Complexity: O(n)
+Expected Space Complexity : O(n)
+
+Constraints:
+1 <= length( nums ) <= 105
+1 <= numsi <= 105
+1 <= k <= 105
+
+...........
+
+Absolutely! Let's break down the initial solution step by step:
+
+### Problem Analysis:
+We're given an array of integers `nums` and a number `k`. We need to determine if it's possible to divide the array into pairs such that the sum of each pair is divisible by `k`.
+
+### Initial Approach:
+1. **Frequency Mapping:** We'll start by creating a frequency map to keep track of remainders when each element in `nums` is divided by `k`.
+2. **Pair Formation Rules:**
+   - For a pair's sum to be divisible by `k`, the remainders of the elements in the pair must follow specific rules:
+     - If the remainder is `0`, it must appear an even number of times to form pairs (`num % k == 0`).
+     - If the remainder is exactly half of `k`, it also needs to appear an even number of times (`num % k == k / 2`).
+     - For any other remainder, the frequency of that remainder should match the frequency of its complement (`complement = (k - remainder) % k`).
+
+### Step-by-Step Code Explanation:
+
+#### 1. Frequency Mapping:
+   - **Data Structure:** Use a HashMap (`remainderFreq`) to store the frequency of remainders.
+   - **Loop Through `nums`:** For each `num` in `nums`, calculate its remainder when divided by `k`.
+   - **Update Frequency Map:** Increment the count of this remainder in the `remainderFreq` map.
+
+#### 2. Pair Formation Rules:
+   - **Iterate through Remainder Frequencies:**
+     - For each remainder in the map:
+       - Calculate its complement.
+       - Check specific conditions for the remainder to form pairs.
+         - If remainder is `0`, it should occur an even number of times.
+         - If remainder is half of `k`, it should occur an even number of times.
+         - For any other remainder, its frequency should match its complement's frequency.
+
+#### 3. Return the Result:
+   - If all the conditions for pair formation are met, return `true`, indicating it's possible to form pairs meeting the divisible-by-`k` condition.
+   - If any condition fails, return `false`, indicating it's not possible to form such pairs.
+
+This solution uses the concept of remainders and their frequencies to determine if the given array can be paired in a way that satisfies the divisibility condition specified by `k`.
+
+............
+
+
+class Solution {
+    public boolean canPair(int[] nums, int k) {
+        if (nums.length % 2 != 0) {
+            return false;
+        }
+
+        HashMap<Integer, Integer> remainderFreq = new HashMap<>();
+
+        for (int num : nums) {
+            int remainder = num % k;
+            remainderFreq.put(remainder, remainderFreq.getOrDefault(remainder, 0) + 1);
+        }
+
+        for (int remainder : remainderFreq.keySet()) {
+            int complement = (k - remainder) % k;
+            if (remainder == 0) {
+                if (remainderFreq.get(remainder) % 2 != 0) {
+                    return false;
+                }
+            } else if (remainder == complement) {
+                if (remainderFreq.get(remainder) % 2 != 0) {
+                    return false;
+                }
+            } else {
+                if (!remainderFreq.getOrDefault(complement, 0).equals(remainderFreq.get(remainder))) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
