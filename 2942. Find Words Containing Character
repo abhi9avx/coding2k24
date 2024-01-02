@@ -1,0 +1,105 @@
+You are given a 0-indexed array of strings words and a character x.
+
+Return an array of indices representing the words that contain the character x.
+
+Note that the returned array may be in any order.
+
+ 
+
+Example 1:
+
+Input: words = ["leet","code"], x = "e"
+Output: [0,1]
+Explanation: "e" occurs in both words: "leet", and "code". Hence, we return indices 0 and 1.
+Example 2:
+
+Input: words = ["abc","bcd","aaaa","cbc"], x = "a"
+Output: [0,2]
+Explanation: "a" occurs in "abc", and "aaaa". Hence, we return indices 0 and 2.
+Example 3:
+
+Input: words = ["abc","bcd","aaaa","cbc"], x = "z"
+Output: []
+Explanation: "z" does not occur in any of the words. Hence, we return an empty array.
+ 
+
+Constraints:
+
+1 <= words.length <= 50
+1 <= words[i].length <= 50
+x is a lowercase English letter.
+words[i] consists only of lowercase English letters.
+
+...............
+
+class Solution {
+    public List<Integer> findWordsContaining(String[] words, char x) {
+        List<Integer> indices = new ArrayList<>();
+        
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].indexOf(x) != -1) {
+                indices.add(i);
+            }
+        }
+        
+        return indices;
+    }
+}
+
+................
+
+Absolutely! Here's a breakdown of each line in the `findWordsContaining` method:
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+    public List<Integer> findWordsContaining(String[] words, char x) {
+        List<Integer> indices = new ArrayList<>();
+```
+
+1. `import java.util.ArrayList;` and `import java.util.List;`: These lines import the `ArrayList` and `List` classes from the `java.util` package. They are necessary for using ArrayLists and Lists in the code.
+
+2. `class Solution {`: This line declares the `Solution` class.
+
+3. `public List<Integer> findWordsContaining(String[] words, char x) {`: This line declares the `findWordsContaining` method. It takes an array of strings `words` and a character `x` as parameters. It returns a `List` containing `Integer` values (indices).
+
+```java
+        List<Integer> indices = new ArrayList<>();
+```
+
+4. `List<Integer> indices = new ArrayList<>();`: This line initializes a new `ArrayList` named `indices` that will store the indices of words containing the character `x`.
+
+```java
+        for (int i = 0; i < words.length; i++) {
+```
+
+5. `for (int i = 0; i < words.length; i++) {`: This line starts a loop that iterates through each word in the `words` array using the variable `i` as an index.
+
+```java
+            if (words[i].indexOf(x) != -1) {
+```
+
+6. `if (words[i].indexOf(x) != -1) {`: This line checks if the current word (`words[i]`) contains the character `x`. The `indexOf` method returns the index of the first occurrence of the character `x` in the word. If the character is not found, `indexOf` returns `-1`.
+
+```java
+                indices.add(i);
+```
+
+7. `indices.add(i);`: If the character `x` is found in the current word, this line adds the index `i` (the index of the word) to the `indices` list.
+
+```java
+            }
+        }
+```
+
+8. `}`: Closing brace for the `if` statement and `for` loop.
+
+```java
+        return indices;
+```
+
+9. `return indices;`: This line returns the `indices` list, which contains the indices of words that contain the character `x`.
+
+This method essentially iterates through the array of words, checks each word for the presence of the character `x`, and stores the indices of the words containing `x` in a list. Finally, it returns this list of indices.
