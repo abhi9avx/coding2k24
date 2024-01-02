@@ -1,0 +1,127 @@
+Given an array a of length n and a number k, find the largest sum of the subarray containing at least k numbers. It is guaranteed that the size of array is at-least k.
+
+Example 1:
+
+Input : 
+n = 4
+a[] = {1, -2, 2, -3}
+k = 2
+Output : 
+1
+Explanation :
+The sub-array of length at-least 2
+that produces greatest sum is {1, -2, 2}
+Example 2:
+Input :
+n = 6 
+a[] = {1, 1, 1, 1, 1, 1}
+k = 2
+Output : 
+6
+Explanation :
+The sub-array of length at-least 2
+that produces greatest sum is {1, 1, 1, 1, 1, 1}
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function maxSumWithK() which takes the array a[], its size n and an integer k as inputs and returns the value of the largest sum of the subarray containing at least k numbers.
+
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(n)
+
+Constraints:
+1 <= n <= 105
+-105 <= a[i] <= 105
+1 <= k <= n
+
+
+...........
+
+
+class Solution {
+    
+    public long maxSumWithK(long a[], long n, long k) {
+        long[] prefixSum = new long[(int) (n + 1)];
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + a[i];
+        }
+
+        long[] minPrefixSum = new long[(int) (n + 1)];
+        for (int i = 1; i <= n; i++) {
+            minPrefixSum[i] = Math.min(minPrefixSum[i - 1], prefixSum[i]);
+        }
+
+        long result = Long.MIN_VALUE;
+        long maxSum = Long.MIN_VALUE;
+
+        for (int i = (int) k; i <= n; i++) {
+            maxSum = Math.max(maxSum, prefixSum[i] - minPrefixSum[i - (int) k]);
+            result = Math.max(result, maxSum);
+        }
+
+        return result;
+    }
+}
+
+...........
+
+class Solution {
+    
+    public long maxSumWithK(long a[], long n, long k) {
+        long[] prefixSum = new long[(int) (n + 1)];
+        for (int i = 0; i < n; i++) {
+            prefixSum[i + 1] = prefixSum[i] + a[i];
+        }
+
+        long[] minPrefixSum = new long[(int) (n + 1)];
+        for (int i = 1; i <= n; i++) {
+            minPrefixSum[i] = Math.min(minPrefixSum[i - 1], prefixSum[i]);
+        }
+
+        long result = Long.MIN_VALUE;
+        long maxSum = Long.MIN_VALUE;
+
+        for (int i = (int) k; i <= n; i++) {
+            maxSum = Math.max(maxSum, prefixSum[i] - minPrefixSum[i - (int) k]);
+            result = Math.max(result, maxSum);
+        }
+
+        return result;
+    }
+}
+
+............
+
+
+
+class Solution {
+    public long maxSumWithK(long a[], long n, long k) {
+        // Create an array to store prefix sums
+        long[] prefixSum = new long[(int) (n + 1)];
+        for (int i = 0; i < n; i++) {
+            // Calculate the prefix sum of the array elements
+            prefixSum[i + 1] = prefixSum[i] + a[i];
+        }
+
+        // Create an array to store minimum prefix sums encountered so far
+        long[] minPrefixSum = new long[(int) (n + 1)];
+        for (int i = 1; i <= n; i++) {
+            // Calculate the minimum prefix sum up to the current index
+            minPrefixSum[i] = Math.min(minPrefixSum[i - 1], prefixSum[i]);
+        }
+
+        // Initialize result and maxSum to minimum value for comparison
+        long result = Long.MIN_VALUE;
+        long maxSum = Long.MIN_VALUE;
+
+        // Iterate to find the largest sum subarray of size at least k
+        for (int i = (int) k; i <= n; i++) {
+            // Calculate the maximum subarray sum starting at position i and having at least k elements
+            maxSum = Math.max(maxSum, prefixSum[i] - minPrefixSum[i - (int) k]);
+            
+            // Update result with the maximum sum encountered
+            result = Math.max(result, maxSum);
+        }
+
+        // Return the largest sum of a subarray containing at least k numbers
+        return result;
+    }
+}
