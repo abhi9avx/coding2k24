@@ -1,0 +1,42 @@
+
+2235. Add Two Integers
+
+
+
+Example 1:
+
+Input: num1 = 12, num2 = 5
+Output: 17
+Explanation: num1 is 12, num2 is 5, and their sum is 12 + 5 = 17, so 17 is returned.
+Example 2:
+
+Input: num1 = -10, num2 = 4
+Output: -6
+Explanation: num1 + num2 = -6, so -6 is returned.
+ 
+
+Constraints:
+
+-100 <= num1, num2 <= 100
+
+..........
+
+public class Main {
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        
+        // Example 1
+        int num1_example1 = 12;
+        int num2_example1 = 5;
+        int result_example1 = solution.sum(num1_example1, num2_example1);
+        System.out.println("Input: num1 = " + num1_example1 + ", num2 = " + num2_example1);
+        System.out.println("Output: " + result_example1);
+        
+        // Example 2
+        int num1_example2 = -10;
+        int num2_example2 = 4;
+        int result_example2 = solution.sum(num1_example2, num2_example2);
+        System.out.println("Input: num1 = " + num1_example2 + ", num2 = " + num2_example2);
+        System.out.println("Output: " + result_example2);
+    }
+}
