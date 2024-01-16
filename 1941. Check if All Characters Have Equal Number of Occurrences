@@ -1,0 +1,50 @@
+1941. Check if All Characters Have Equal Number of Occurrences
+
+Given a string s, return true if s is a good string, or false otherwise.
+
+A string s is good if all the characters that appear in s have the same number of occurrences (i.e., the same frequency).
+
+ 
+
+Example 1:
+
+Input: s = "abacbc"
+Output: true
+Explanation: The characters that appear in s are 'a', 'b', and 'c'. All characters occur 2 times in s.
+Example 2:
+
+Input: s = "aaabb"
+Output: false
+Explanation: The characters that appear in s are 'a' and 'b'.
+'a' occurs 3 times while 'b' occurs 2 times, which is not the same number of times.
+ 
+
+Constraints:
+
+1 <= s.length <= 1000
+s consists of lowercase English letters.
+
+.......
+
+class Solution {
+    public boolean areOccurrencesEqual(String s) {
+        // Create a HashMap to store the count of each character
+        Map<Character, Integer> charCount = new HashMap<>();
+
+        // Count the occurrences of each character
+        for (char c : s.toCharArray()) {
+            charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+        }
+
+        // Check if all characters have the same count
+        int firstCount = charCount.get(s.charAt(0));
+        for (int count : charCount.values()) {
+            if (count != firstCount) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
