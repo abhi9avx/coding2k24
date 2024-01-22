@@ -1,0 +1,126 @@
+Paths from root with a specified sum
+
+
+............
+
+Given a Binary tree and a sum S, print all the paths, starting from root, that sums upto the given sum. Path not necessarily end on a leaf node.
+
+Example 1:
+
+Input : 
+sum = 8
+Input tree
+         1
+       /   \
+     20      3
+           /    \
+         4       15   
+        /  \     /  \
+       6    7   8    9      
+
+Output :
+1 3 4
+Explanation : 
+Sum of path 1, 3, 4 = 8.
+Example 2:
+
+Input : 
+sum = 38
+Input tree
+          10
+       /     \
+     28       13
+           /     \
+         14       15
+        /   \     /  \
+       21   22   23   24
+Output :
+10 28
+10 13 15  
+Explanation :
+Sum of path 10, 28 = 38 and
+Sum of path 10, 13, 15 = 38.
+Your task :
+You don't have to read input or print anything. Your task is to complete the function printPaths() that takes the root of the tree and sum as input and returns a vector of vectors containing the paths that lead to the sum.
+ 
+Expected Time Complexity: O(N)
+Expected Space Complexity: O(N2)
+ 
+Your Task :
+1 <= N <= 2*103
+-103 <= sum, Node.key <= 103
+
+.................
+
+
+import java.util.ArrayList;
+
+class Node {
+    int data;
+    Node left, right;
+
+    public Node(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+class Solution {
+    public static ArrayList<ArrayList<Integer>> printPaths(Node root, int sum) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        ArrayList<Integer> currentPath = new ArrayList<>();
+        dfs(root, sum, currentPath, result);
+        return result;
+    }
+
+    private static void dfs(Node node, int targetSum, ArrayList<Integer> currentPath, ArrayList<ArrayList<Integer>> result) {
+        if (node == null) {
+            return;
+        }
+
+        currentPath.add(node.data);
+
+        // Check if the current path equals the target sum
+        if (node.data == targetSum) {
+            result.add(new ArrayList<>(currentPath));
+        }
+
+        // Explore left and right subtrees
+        dfs(node.left, targetSum - node.data, currentPath, result);
+        dfs(node.right, targetSum - node.data, currentPath, result);
+
+        // Backtrack
+        currentPath.remove(currentPath.size() - 1);
+    }
+
+    public static void main(String[] args) {
+        // Example usage:
+        Node root1 = new Node(1);
+        root1.left = new Node(20);
+        root1.right = new Node(3);
+        root1.right.left = new Node(4);
+        root1.right.right = new Node(15);
+        root1.right.left.left = new Node(6);
+        root1.right.left.right = new Node(7);
+        root1.right.right.left = new Node(8);
+        root1.right.right.right = new Node(9);
+
+        int targetSum1 = 8;
+        ArrayList<ArrayList<Integer>> result1 = printPaths(root1, targetSum1);
+        System.out.println(result1);  // Output: [[1, 3, 4]]
+
+        Node root2 = new Node(10);
+        root2.left = new Node(28);
+        root2.right = new Node(13);
+        root2.right.left = new Node(14);
+        root2.right.right = new Node(15);
+        root2.right.left.left = new Node(21);
+        root2.right.left.right = new Node(22);
+        root2.right.right.left = new Node(23);
+        root2.right.right.right = new Node(24);
+
+        int targetSum2 = 38;
+        ArrayList<ArrayList<Integer>> result2 = printPaths(root2, targetSum2);
+        System.out.println(result2);  // Output: [[10, 28], [10, 13, 15]]
+    }
+}
