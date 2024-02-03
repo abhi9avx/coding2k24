@@ -1,0 +1,25 @@
+static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    long DecimalValue(Node head) {
+        if (head == null) { // Empty linked list
+            return 0;
+        }
+
+        long mod = 1000000007; // 10^9 + 7
+        long decimal = 0;
+
+        while (head != null) {
+            decimal = (decimal * 2 + head.data) % mod;
+            head = head.next;
+        }
+
+        return decimal;
+    }
